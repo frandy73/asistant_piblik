@@ -1,0 +1,5 @@
+{
+  "name": "Asistan Administratif Piblik",
+  "description": "Yon asistan entèlijan ki ede w konprann dokiman ak pwosedi administratif piblik yo.",
+  "requestFramePermissions": ["microphone"]
+}

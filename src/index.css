@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-hda-blue: #003399;
+  --color-hda-red: #E11D48;
+}
+
+body {
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  background-image: radial-gradient(#cbd5e1 0.75px, transparent 0.75px);
+  background-size: 24px 24px;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+
+input, textarea {
+  user-select: text;
+}
+
+.dark body {
+  background-image: radial-gradient(#1e293b 1px, transparent 1px);
+  background-color: #020617;
+}
+
+.markdown-body.dark p, .dark .markdown-body p {
+  color: #cbd5e1;
+}
+
+.markdown-body strong {
+  font-weight: 700;
+}
+
+.dark .markdown-body strong {
+  color: #f1f5f9;
+}
+
+.dark .markdown-body hr {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.95); }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
