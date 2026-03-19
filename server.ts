@@ -129,13 +129,6 @@ async function startServer() {
         status,
         data: errorData,
         message: error.message,
-        stack: error.stack,
-        config: error.config ? {
-          url: error.config.url,
-          method: error.config.method,
-          headers: { ...error.config.headers, 'x-api-key': '***' },
-          data: error.config.data
-        } : null
       });
 
       let errorMessage = "Mwen regret sa, sèvis AI a gen yon ti pwoblèm kounye a.";
@@ -147,13 +140,18 @@ async function startServer() {
         if (typeof errorData === 'string') {
           errorMessage = errorData;
         } else if (typeof errorData === 'object') {
-          errorMessage = errorData.error || errorData.message || "Sèvis la pa ka reponn kounye a.";
+          errorMessage = errorData.error || errorData.message || "Sèvis AI a pa disponib kounye a.";
         }
       } else if (error.message && !error.message.includes('getaddrinfo')) {
         errorMessage = error.message;
       }
 
-      res.status(status).json({ error: String(errorMessage) });
+      // Toujou voye JSON pou evite HTML error pages nan frontend
+      res.setHeader('Content-Type', 'application/json');
+      res.status(status).json({ 
+        error: String(errorMessage),
+        code: error.code || 'UNKNOWN_ERROR'
+      });
     }
   });
 

@@ -261,11 +261,19 @@ export default function App() {
 
       if (!response.ok) {
         let errorMessage = 'Sèvis AI a gen yon pwoblèm. Tanpri eseye ankò.';
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData.error || errorMessage;
-        } catch (e) {
-          console.error('Failed to parse error response:', e);
+        const contentType = response.headers.get('content-type');
+        
+        if (contentType && contentType.includes('application/json')) {
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } catch (e) {
+            console.error('Failed to parse error response:', e);
+          }
+        } else {
+          // If not JSON, it might be a Vercel error page
+          console.warn('Server returned non-JSON error:', response.status);
+          errorMessage = "Mwen regret sa, gen yon ti pwoblèm nan sistèm nan kounye a. Tanpri verifye 'Settings' ou yo.";
         }
         throw new Error(errorMessage);
       }
